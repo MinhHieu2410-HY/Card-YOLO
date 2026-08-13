@@ -100,4 +100,4 @@ Base model: `yolov8n.pt` (YOLOv8 nano — fast, lightweight, suited for real-tim
 ## Acknowledgments
 
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
-- Dataset: <!-- TODO: credit dataset source -->
+- Dataset: (https://www.kaggle.com/datasets/andy8744/playing-cards-object-detection-dataset)
