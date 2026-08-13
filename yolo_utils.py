@@ -65,23 +65,6 @@ def process_video(model, in_path, out_path, imgsz, conf, iou, device, half,
     return out_path
 
 
-def run_webcam_window(model, imgsz, conf, iou, device, half, cam_index=0):
-    cap = cv2.VideoCapture(cam_index)
-    if not cap.isOpened():
-        raise RuntimeError("Không mở được camera.")
-
-    window = "Card-YOLO live - press q to quit"
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        annotated, _ = predict_frame(model, frame, imgsz, conf, iou, device, half)
-        cv2.imshow(window, annotated)
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
-    cap.release()
-    cv2.destroyAllWindows()
-
 
 def load_data_yaml(yaml_path: str) -> dict:
     with open(yaml_path, "r", encoding="utf-8") as f:

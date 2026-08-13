@@ -8,7 +8,7 @@ import torch
 from PIL import Image
 
 from yolo_utils import (
-    load_model, predict_frame, class_counts, process_video, run_webcam_window,
+    load_model, predict_frame, class_counts, process_video,
     dataset_summary, load_data_yaml, dataset_root, extract_zip,
     collect_pairs_from_dir, validate_pairs, merge_pairs,
 )
@@ -103,22 +103,25 @@ def video_tab(model, imgsz, conf, iou, device, half):
 
 
 def webcam_tab(model, imgsz, conf, iou, device, half):
-    st.caption(
-        "Camera sẽ mở trong một cửa sổ riêng (ngoài trình duyệt), nhấn phím 'q' để dừng. "
-        "Chỉ hoạt động khi chạy app trên máy local — không hoạt động trên bản deploy Streamlit Cloud "
-        "vì server không có camera/màn hình để mở cửa sổ."
-    )
-    cam_index = st.number_input("Chỉ số camera", min_value=0, value=0, step=1)
-    if st.button("Bắt đầu camera trực tiếp"):
-        try:
-            run_webcam_window(model, imgsz, conf, iou, device, half, cam_index=int(cam_index))
-            st.success("Đã dừng camera.")
-        except Exception as e:
-            st.error(f"Không mở được camera ở môi trường hiện tại: {e}")
+    photo = st.camera_input("Chụp ảnh từ camera")
+    if photo is None:
+        return
+
+    image = Image.open(photo).convert("RGB")
+    frame_bgr = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    annotated, r = predict_frame(model, frame_bgr, imgsz, conf, iou, device, half)
+
+    st.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), caption="Kết quả nhận diện", use_container_width=True)
+
+    counts = class_counts(r, model)
+    if counts:
+        st.write("Số lượng theo lớp:", counts)
+    else:
+        st.info("Không phát hiện đối tượng nào.")
 
 
 def test_tab(model, imgsz, conf, iou, device, half):
-    mode = st.radio("Loại đầu vào", ["Ảnh", "Video", "Camera trực tiếp"], horizontal=True)
+    mode = st.radio("Loại đầu vào", ["Ảnh", "Video", "Camera"], horizontal=True)
     st.divider()
     if mode == "Ảnh":
         image_tab(model, imgsz, conf, iou, device, half)
