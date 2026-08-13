@@ -6,6 +6,11 @@ Playing card object detection built with **YOLOv8** (Ultralytics). Includes trai
 ![YOLOv8](https://img.shields.io/badge/Model-YOLOv8-orange)
 ![Streamlit](https://img.shields.io/badge/Demo-Streamlit-red)
 
+<img width="640" height="640" alt="001771721_jpg rf 687025a63ae5c9e58f2454ab1e41eaa9" src="https://github.com/user-attachments/assets/4d0e8584-4914-441a-99d3-d9d5a28e0e29" />
+<img width="640" height="640" alt="018322802_jpg rf c6b8f90454d466c56ac1652439b14773" src="https://github.com/user-attachments/assets/2cf38c97-c7fa-4b03-9dea-738d362e0d7b" />
+<img width="640" height="640" alt="004843130_jpg rf 70d99d0334e006679aa00a74d4ea745b" src="https://github.com/user-attachments/assets/58efd840-ad47-410e-90d4-9f98e12391f5" />
+
+
 ## Features
 
 - Detects and classifies playing cards in images, videos, and live webcam feed
