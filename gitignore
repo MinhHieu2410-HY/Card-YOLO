@@ -1,0 +1,18 @@
+# Virtual environment
+YOLO_venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Dataset - anh/label qua lon, tai rieng (xem README)
+PlayingCards/
+
+# Ket qua train - qua lon (log, ckpt trung gian, anh validation...)
+runs/
+
+# Video demo tam thoi
+*.mp4
+
+# Streamlit cache
+.streamlit/
